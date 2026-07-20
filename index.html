@@ -53,12 +53,26 @@
         .nav a:hover {
             color: #2e7d32;
         }
-        .header-phone {
+        .header-cart {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.8rem;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .cart-count {
+            background: #d32f2f;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
             font-weight: 700;
-            color: #2e7d32;
-            text-decoration: none;
-            font-size: 1rem;
-            white-space: nowrap;
         }
 
         .section {
@@ -241,20 +255,107 @@
             color: #d32f2f;
             margin: 10px 0;
         }
-        .telegram-btn {
+        .add-to-cart-btn {
             margin-top: auto;
-            background: #0088cc;
+            background: #2e7d32;
             color: white;
             padding: 12px;
             text-align: center;
             border-radius: 8px;
-            text-decoration: none;
+            cursor: pointer;
             font-weight: 600;
-            display: block;
-            transition: background 0.3s;
+            transition: 0.3s;
+            border: none;
+            width: 100%;
         }
-        .telegram-btn:hover {
-            background: #0077b5;
+        .add-to-cart-btn:hover {
+            background: #1b5e20;
+        }
+
+        /* Модальное окно корзины */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+        }
+        .modal {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .modal h3 {
+            margin-bottom: 20px;
+            color: #2e7d32;
+        }
+        .cart-items {
+            margin: 15px 0;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+        .cart-item-name {
+            flex: 2;
+        }
+        .cart-item-price {
+            margin: 0 15px;
+            font-weight: 700;
+        }
+        .remove-item {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .cart-total {
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-align: right;
+            margin-top: 15px;
+        }
+        .form-group {
+            margin: 15px 0;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+        .form-group input:focus {
+            border-color: #2e7d32;
+            outline: none;
+        }
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .form-actions button {
+            flex: 1;
         }
 
         .delivery-content {
@@ -337,13 +438,15 @@
             <a href="#delivery">Самовывоз</a>
             <a href="#contacts">Контакты</a>
         </nav>
-        <a href="https://t.me/+79169014737" target="_blank" class="header-phone">✈️ +7 916 901-47-37</a>
+        <div class="header-cart" id="cartIcon">
+            🛒 <span class="cart-count" id="cartCount">0</span>
+        </div>
     </header>
 
     <!-- Герой -->
     <section class="hero">
         <h1>Настоящие белорусские продукты<br>с доставкой по Москве</h1>
-        <p>Молоко, мясо, сыры, сладости и не только — закажите через Telegram и заберите самовывозом.</p>
+        <p>Молоко, мясо, сыры, сладости и не только — соберите заказ и заберите самовывозом.</p>
         <a href="#catalog" class="btn">Смотреть каталог</a>
     </section>
 
@@ -367,9 +470,9 @@
                 <p>Только проверенные бренды из РБ.</p>
             </div>
             <div class="feature-card">
-                <div class="icon">✈️</div>
+                <div class="icon">🛒</div>
                 <h3>Быстрый заказ</h3>
-                <p>Напишите в Telegram — и мы всё подготовим.</p>
+                <p>Корзина и оформление за минуту.</p>
             </div>
         </div>
     </section>
@@ -399,10 +502,9 @@
                 <ul>
                     <li><span class="icon">📦</span> <strong>Адрес:</strong> г. Москва, ул. Примерная, д.10</li>
                     <li><span class="icon">🕒</span> <strong>Время работы пункта выдачи:</strong> ежедневно 10:00–20:00</li>
-                    <li><span class="icon">✈️</span> <strong>Как заказать:</strong> напишите в Telegram, мы соберём заказ и сообщим о готовности</li>
+                    <li><span class="icon">🛒</span> <strong>Как заказать:</strong> добавьте товары в корзину и заполните форму</li>
                     <li><span class="icon">💳</span> <strong>Оплата:</strong> наличные или перевод при получении</li>
                 </ul>
-                <p style="margin-top: 15px; color: #555;">Предварительный заказ через Telegram обязателен — так мы подготовим всё заранее.</p>
             </div>
             <div class="map-container">
                 <iframe src="https://yandex.ru/map-widget/v1/?ll=37.617700%2C55.755863&z=10" width="100%" height="300" frameborder="0" style="border:0;" allowfullscreen></iframe>
@@ -437,8 +539,39 @@
         <p>© 2025 BelorussProduct — настоящие белорусские товары в Москве.</p>
     </footer>
 
+    <!-- Модальное окно корзины -->
+    <div class="modal-overlay" id="cartModal">
+        <div class="modal">
+            <h3>🛒 Ваша корзина</h3>
+            <div class="cart-items" id="cartItemsContainer"></div>
+            <div class="cart-total" id="cartTotal"></div>
+            <!-- Форма заказа (скрыта, пока не нажали "Оформить заказ") -->
+            <form id="orderForm" style="display: none;">
+                <div class="form-group">
+                    <label>Имя *</label>
+                    <input type="text" name="name" id="customerName" required>
+                </div>
+                <div class="form-group">
+                    <label>Телефон или Email *</label>
+                    <input type="text" name="contact" id="customerContact" placeholder="+7 999 123-45-67 или email" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-outline" onclick="closeCart()">Продолжить покупки</button>
+                    <button type="submit" class="btn">Отправить заказ</button>
+                </div>
+            </form>
+            <div class="form-actions" id="cartActions">
+                <button class="btn-outline" onclick="closeCart()">Продолжить покупки</button>
+                <button class="btn" onclick="startCheckout()">Оформить заказ</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Массив товаров (можно легко пополнять)
+        // ================= НАСТРОЙКИ =================
+        const WORKER_URL = 'https://ваш-worker.workers.dev'; // ЗАМЕНИТЕ НА РЕАЛЬНЫЙ URL
+
+        // Товары (id — уникальный код товара)
         const products = [
             { id:1, cat:"milk", name:"Сметана «Брест-Литовск» 20%", price: 180, weight:"400 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Сметана" },
             { id:2, cat:"milk", name:"Творог обезжиренный «Савушкин»", price: 120, weight:"250 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Творог" },
@@ -451,13 +584,25 @@
             { id:9, cat:"milk", name:"Масло сливочное 82,5% «Брестское»", price: 250, weight:"180 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Масло" }
         ];
 
+        // Корзина: массив объектов товаров (можно хранить и количество, но пока без)
+        let cart = [];
+
+        // DOM-элементы
         const productGrid = document.getElementById('productGrid');
         const searchInput = document.getElementById('searchInput');
         const filterBtns = document.querySelectorAll('.filter-btn');
+        const cartIcon = document.getElementById('cartIcon');
+        const cartCount = document.getElementById('cartCount');
+        const cartModal = document.getElementById('cartModal');
+        const cartItemsContainer = document.getElementById('cartItemsContainer');
+        const cartTotal = document.getElementById('cartTotal');
+        const orderForm = document.getElementById('orderForm');
+        const cartActions = document.getElementById('cartActions');
 
         let currentCategory = 'all';
         let searchQuery = '';
 
+        // ========== РЕНДЕР КАТАЛОГА ==========
         function renderProducts() {
             const filtered = products.filter(p => {
                 const matchCat = currentCategory === 'all' || p.cat === currentCategory;
@@ -465,25 +610,20 @@
                 return matchCat && matchSearch;
             });
 
-            productGrid.innerHTML = filtered.map(p => {
-                // Формируем Telegram-ссылку с номером +79169014737
-                const message = encodeURIComponent(`Здравствуйте! Хочу заказать: ${p.name}, цена ${p.price} руб.`);
-                const tgLink = `https://t.me/+79169014737?text=${message}`;
-
-                return `
-                    <div class="product-card">
-                        <img src="${p.img}" alt="${p.name}">
-                        <div class="product-info">
-                            <h3>${p.name}</h3>
-                            <div class="product-meta">${p.weight}</div>
-                            <div class="product-price">${p.price} ₽</div>
-                            <a href="${tgLink}" target="_blank" class="telegram-btn">✈️ Заказать в Telegram</a>
-                        </div>
+            productGrid.innerHTML = filtered.map(p => `
+                <div class="product-card">
+                    <img src="${p.img}" alt="${p.name}">
+                    <div class="product-info">
+                        <h3>${p.name}</h3>
+                        <div class="product-meta">${p.weight}</div>
+                        <div class="product-price">${p.price} ₽</div>
+                        <button class="add-to-cart-btn" onclick="addToCart(${p.id})">🛒 В корзину</button>
                     </div>
-                `;
-            }).join('');
+                </div>
+            `).join('');
         }
 
+        // Фильтры и поиск
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 filterBtns.forEach(b => b.classList.remove('active'));
@@ -492,27 +632,145 @@
                 renderProducts();
             });
         });
-
         searchInput.addEventListener('input', (e) => {
             searchQuery = e.target.value;
             renderProducts();
         });
 
-        renderProducts();
+        // ========== ЛОГИКА КОРЗИНЫ ==========
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            cart.push({...product}); // добавляем копию товара
+            updateCartUI();
+            alert(`✅ "${product.name}" добавлен в корзину`);
+        }
 
-        // Плавная прокрутка для якорных ссылок
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+            if (cart.length === 0 && cartModal.style.display === 'flex') {
+                closeCart();
+            } else {
+                renderCartItems();
+            }
+        }
+
+        function updateCartUI() {
+            cartCount.textContent = cart.length;
+            if (cartModal.style.display === 'flex') renderCartItems();
+        }
+
+        function renderCartItems() {
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="text-align:center; color:#777;">Корзина пуста</p>';
+                cartTotal.innerHTML = '';
+                cartActions.style.display = 'none';
+                orderForm.style.display = 'none';
+            } else {
+                let itemsHtml = cart.map((item, index) => `
+                    <div class="cart-item">
+                        <span class="cart-item-name">${item.name} (${item.weight})</span>
+                        <span class="cart-item-price">${item.price} ₽</span>
+                        <button class="remove-item" onclick="removeFromCart(${index})">✕</button>
+                    </div>
+                `).join('');
+                cartItemsContainer.innerHTML = itemsHtml;
+                const total = cart.reduce((sum, item) => sum + item.price, 0);
+                cartTotal.innerHTML = `<strong>Итого: ${total} ₽</strong>`;
+                cartActions.style.display = 'flex';
+                orderForm.style.display = 'none';
+            }
+        }
+
+        // ========== МОДАЛЬНОЕ ОКНО ==========
+        function openCart() {
+            cartModal.style.display = 'flex';
+            renderCartItems();
+        }
+
+        function closeCart() {
+            cartModal.style.display = 'none';
+        }
+
+        cartIcon.addEventListener('click', openCart);
+        cartModal.addEventListener('click', function(e) {
+            if (e.target === cartModal) closeCart();
+        });
+
+        // ========== ОФОРМЛЕНИЕ ЗАКАЗА ==========
+        function startCheckout() {
+            if (cart.length === 0) {
+                alert('Добавьте товары в корзину!');
+                return;
+            }
+            cartActions.style.display = 'none';
+            orderForm.style.display = 'block';
+        }
+
+        // Отправка формы на Worker
+        document.getElementById('orderForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Генерируем уникальный номер заказа
+            const orderNumber = 'BLR-' + Date.now().toString(36).toUpperCase() + '-' + Math.floor(Math.random()*1000);
+
+            // Формируем список товаров с кодами
+            const itemsList = cart.map(item => `[${item.id}] ${item.name} (${item.weight}) – ${item.price}₽`).join('\n');
+            const total = cart.reduce((sum, item) => sum + item.price, 0) + ' ₽';
+
+            // Объект заказа, который уйдёт в Worker
+            const orderData = {
+                number: orderNumber,
+                date: new Date().toLocaleString('ru-RU'),
+                customer: {
+                    name: document.getElementById('customerName').value,
+                    contact: document.getElementById('customerContact').value
+                },
+                items: itemsList,
+                total: total,
+                // можно также отправить массив cart для более детальной обработки
+                rawItems: cart.map(item => ({ id: item.id, name: item.name, price: item.price, weight: item.weight }))
+            };
+
+            try {
+                const resp = await fetch(WORKER_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(orderData)
+                });
+                const result = await resp.json();
+                if (resp.ok && result.success) {
+                    alert(`✅ Заказ №${orderNumber} оформлен! Мы свяжемся с вами.`);
+                    // Очищаем корзину и закрываем
+                    cart = [];
+                    updateCartUI();
+                    closeCart();
+                    document.getElementById('customerName').value = '';
+                    document.getElementById('customerContact').value = '';
+                    orderForm.style.display = 'none';
+                } else {
+                    throw new Error(result.error || 'Ошибка сервера');
+                }
+            } catch (error) {
+                alert('😔 Ошибка при отправке. Попробуйте ещё раз или свяжитесь с нами через Telegram.');
+                console.error(error);
+            }
+        });
+
+        // Плавная прокрутка
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
                 if (href === "#") return;
                 e.preventDefault();
                 const target = document.querySelector(href);
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
-    </script>
 
+        // Первый рендер
+        renderProducts();
+    </script>
 </body>
 </html>
