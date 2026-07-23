@@ -6,286 +6,213 @@
     <title>BelorussProduct — Белорусские товары в Москве</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Montserrat',sans-serif; background:#fff; color:#333; line-height:1.6; }
+        body { font-family: 'Inter', sans-serif; background: #f8f9fa; color: #212529; line-height: 1.5; }
 
-        /* Шапка */
-        .header { background:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.08); position:sticky; top:0; z-index:100;
-            padding:15px 5%; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
-        .logo { font-size:1.6rem; font-weight:700; color:#2e7d32; letter-spacing:1px; }
-        .logo span { color:#d32f2f; }
-        .nav a { margin:0 15px; text-decoration:none; color:#444; font-weight:600; transition:color 0.3s; }
-        .nav a:hover { color:#2e7d32; }
-        .header-cart { position:relative; cursor:pointer; font-size:1.8rem; user-select:none; display:flex; align-items:center; gap:5px; }
-        .cart-count { background:#d32f2f; color:white; border-radius:50%; width:24px; height:24px;
-            display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:700; }
+        .header { background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,0.06); position: sticky; top: 0; z-index: 100; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #2e7d32; display: flex; align-items: center; gap: 8px; }
+        .logo span { color: #d32f2f; }
+        .search-box { flex: 1; min-width: 250px; padding: 12px 20px; border: 2px solid #e0e0e0; border-radius: 30px; font-size: 1rem; outline: none; transition: 0.3s; }
+        .search-box:focus { border-color: #2e7d32; }
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { text-decoration: none; color: #555; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: #2e7d32; }
+        .cart-btn { position: relative; background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #333; }
+        .cart-count { position: absolute; top: -8px; right: -12px; background: #d32f2f; color: #fff; border-radius: 50%; width: 22px; height: 22px; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; font-weight: 700; }
 
-        /* Секции */
-        .section { padding:60px 5%; max-width:1200px; margin:0 auto; }
-        .section h2 { font-size:2rem; margin-bottom:30px; color:#2e7d32; text-align:center; position:relative; }
-        .section h2::after { content:''; display:block; width:60px; height:3px; background:#d32f2f; margin:10px auto 0; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 40px 20px; }
+        .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 25px; color: #1b5e20; position: relative; }
+        .section-title::after { content: ''; display: block; width: 60px; height: 3px; background: #d32f2f; margin-top: 8px; }
 
-        /* Герой */
-        .hero { background:linear-gradient(135deg,#e8f5e9,#fff); text-align:center; padding:80px 5%; }
-        .hero h1 { font-size:2.5rem; margin-bottom:15px; color:#1b5e20; }
-        .hero p { max-width:600px; margin:0 auto 25px; color:#555; }
-        .btn { display:inline-block; background:#d32f2f; color:white; padding:14px 30px; border-radius:30px;
-            text-decoration:none; font-weight:600; transition:0.3s; border:none; cursor:pointer; font-size:1rem; }
-        .btn:hover { background:#b71c1c; transform:translateY(-2px); }
-        .btn-outline { background:transparent; border:2px solid #2e7d32; color:#2e7d32; padding:12px 28px;
-            border-radius:30px; font-weight:600; text-decoration:none; transition:0.3s; display:inline-block; }
-        .btn-outline:hover { background:#2e7d32; color:white; }
+        .hero { background: linear-gradient(135deg, #e8f5e9 0%, #fff 100%); text-align: center; padding: 80px 20px; }
+        .hero h1 { font-size: 3rem; font-weight: 800; color: #1b5e20; margin-bottom: 15px; }
+        .hero p { font-size: 1.2rem; color: #555; max-width: 600px; margin: 0 auto 30px; }
+        .btn { display: inline-block; padding: 14px 35px; border-radius: 30px; font-weight: 600; text-decoration: none; transition: 0.3s; border: none; cursor: pointer; }
+        .btn-primary { background: #2e7d32; color: #fff; }
+        .btn-primary:hover { background: #1b5e20; transform: translateY(-2px); }
+        .btn-danger { background: #d32f2f; color: #fff; }
+        .btn-danger:hover { background: #b71c1c; transform: translateY(-2px); }
+        .btn-outline { border: 2px solid #2e7d32; color: #2e7d32; background: transparent; }
+        .btn-outline:hover { background: #2e7d32; color: #fff; }
 
-        /* Преимущества */
-        .features { display:flex; flex-wrap:wrap; gap:30px; justify-content:center; margin-top:40px; }
-        .feature-card { flex:1 1 220px; background:#f1f8e9; padding:30px 20px; border-radius:12px; text-align:center; }
-        .feature-card .icon { font-size:2.5rem; margin-bottom:15px; }
-        .feature-card h3 { color:#1b5e20; }
+        .features { display: flex; flex-wrap: wrap; gap: 25px; margin-top: 40px; justify-content: center; }
+        .feature-card { flex: 1 1 220px; background: #fff; padding: 30px 20px; border-radius: 16px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+        .feature-icon { font-size: 2.5rem; margin-bottom: 15px; }
+        .feature-card h3 { color: #1b5e20; }
 
-        /* Каталог */
-        .catalog-controls { display:flex; gap:15px; flex-wrap:wrap; justify-content:center; margin-bottom:30px; }
-        .search-box { padding:12px 20px; border:2px solid #ddd; border-radius:30px; width:280px; outline:none; }
-        .search-box:focus { border-color:#2e7d32; }
-        .filter-btns { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
-        .filter-btn { padding:10px 20px; border:2px solid #2e7d32; background:white; color:#2e7d32; border-radius:30px;
-            cursor:pointer; font-weight:600; transition:0.3s; }
-        .filter-btn.active, .filter-btn:hover { background:#2e7d32; color:white; }
+        .filters { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 30px; }
+        .filter-btn { padding: 10px 20px; border: 2px solid #ddd; background: #fff; border-radius: 30px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .filter-btn.active, .filter-btn:hover { border-color: #2e7d32; background: #e8f5e9; color: #2e7d32; }
 
-        .product-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:30px; }
-        .product-card { border:1px solid #eee; border-radius:12px; overflow:hidden; background:white;
-            display:flex; flex-direction:column; transition:box-shadow 0.3s; }
-        .product-card:hover { box-shadow:0 6px 20px rgba(0,0,0,0.1); }
-        .product-card img { width:100%; height:200px; object-fit:cover; background:#f5f5f5; }
-        .product-info { padding:20px; flex:1; display:flex; flex-direction:column; }
-        .product-info h3 { font-size:1.1rem; color:#1b5e20; margin-bottom:5px; }
-        .product-meta { font-size:0.9rem; color:#777; margin-bottom:10px; }
-        .product-price { font-weight:700; font-size:1.3rem; color:#d32f2f; margin:10px 0; }
-        .add-to-cart-btn { margin-top:auto; background:#2e7d32; color:white; padding:12px; text-align:center;
-            border-radius:8px; cursor:pointer; font-weight:600; transition:0.3s; border:none; width:100%; }
-        .add-to-cart-btn:hover { background:#1b5e20; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; }
+        .product-card { background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: 0.3s; display: flex; flex-direction: column; }
+        .product-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.12); transform: translateY(-4px); }
+        .product-card img { width: 100%; height: 200px; object-fit: cover; background: #f0f0f0; }
+        .product-body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
+        .product-title { font-weight: 600; font-size: 1.05rem; color: #222; margin-bottom: 6px; }
+        .product-meta { font-size: 0.85rem; color: #777; margin-bottom: 10px; }
+        .product-price { font-size: 1.4rem; font-weight: 700; color: #d32f2f; margin: 10px 0; }
+        .product-actions { margin-top: auto; display: flex; gap: 8px; }
+        .btn-cart { flex: 1; background: #2e7d32; color: #fff; border: none; padding: 12px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .btn-cart:hover { background: #1b5e20; }
 
-        /* Модальное окно корзины */
-        .modal-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5);
-            display:none; justify-content:center; align-items:center; z-index:200; }
-        .modal { background:white; border-radius:12px; padding:30px; max-width:500px; width:90%;
-            max-height:80vh; overflow-y:auto; }
-        .modal h3 { margin-bottom:20px; color:#2e7d32; }
-        .cart-items { margin:15px 0; }
-        .cart-item { display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding:10px 0; }
-        .cart-item-name { flex:2; }
-        .cart-item-price { margin:0 15px; font-weight:700; }
-        .remove-item { background:#d32f2f; color:white; border:none; border-radius:4px; padding:5px 10px; cursor:pointer; }
-        .cart-total { font-weight:700; font-size:1.2rem; text-align:right; margin-top:15px; }
-        .form-group { margin:15px 0; }
-        .form-group label { display:block; margin-bottom:5px; font-weight:600; }
-        .form-group input { width:100%; padding:12px; border:2px solid #ddd; border-radius:8px; font-family:inherit; }
-        .form-group input:focus { border-color:#2e7d32; outline:none; }
-        .form-actions { display:flex; gap:15px; justify-content:space-between; margin-top:20px; }
-        .form-actions button { flex:1; }
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; z-index: 200; }
+        .modal.active { display: flex; }
+        .modal-content { background: #fff; border-radius: 16px; padding: 30px; max-width: 550px; width: 90%; max-height: 85vh; overflow-y: auto; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal-header h3 { color: #1b5e20; }
+        .close-btn { background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #888; }
+        .cart-items { list-style: none; margin-bottom: 20px; }
+        .cart-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #eee; }
+        .cart-item-info { flex: 2; }
+        .cart-item-title { font-weight: 600; }
+        .cart-item-price { font-weight: 700; color: #d32f2f; }
+        .cart-item-actions { display: flex; align-items: center; gap: 10px; }
+        .cart-item-actions button { width: 30px; height: 30px; border-radius: 50%; border: 1px solid #ddd; background: #fff; cursor: pointer; font-weight: bold; }
+        .cart-item-actions .qty { min-width: 30px; text-align: center; }
+        .cart-total { font-size: 1.3rem; font-weight: 700; text-align: right; margin: 15px 0; }
 
-        /* Самовывоз */
-        .delivery-content { display:flex; flex-wrap:wrap; gap:40px; align-items:center; }
-        .delivery-text { flex:1 1 300px; }
-        .delivery-text ul { list-style:none; margin:20px 0; }
-        .delivery-text li { margin:15px 0; display:flex; align-items:center; gap:10px; }
-        .delivery-text .icon { font-size:1.5rem; color:#2e7d32; }
-        .map-container { flex:1 1 300px; border-radius:12px; overflow:hidden; box-shadow:0 4px 15px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 10px; font-family: inherit; }
+        .delivery-option { display: flex; gap: 15px; margin-bottom: 20px; }
+        .delivery-option label { flex: 1; text-align: center; padding: 12px; border: 2px solid #ddd; border-radius: 10px; cursor: pointer; font-weight: 600; }
+        .delivery-option input:checked + label { border-color: #2e7d32; background: #e8f5e9; }
 
-        /* Контакты */
-        .contact-info { display:flex; flex-wrap:wrap; gap:30px; justify-content:center; text-align:center; }
-        .contact-item { flex:1 1 250px; }
-        .contact-item .icon { font-size:2rem; }
-
-        /* Футер */
-        .footer { background:#1b5e20; color:white; text-align:center; padding:25px 5%; margin-top:60px; }
-
-        @media(max-width:768px) {
-            .header { flex-direction:column; gap:10px; }
-            .nav { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; }
-            .hero h1 { font-size:1.8rem; }
-        }
+        .footer { background: #1b5e20; color: #fff; text-align: center; padding: 25px; margin-top: 50px; }
     </style>
 </head>
 <body>
-
-    <!-- Шапка -->
-    <header class="header" id="home">
+    <header class="header">
         <div class="logo">Beloruss<span>Product</span></div>
-        <nav class="nav">
-            <a href="#home">Главная</a>
+        <input type="text" class="search-box" id="searchInput" placeholder="🔍 Искать товары...">
+        <div class="nav-links">
+            <a href="#">Главная</a>
             <a href="#catalog">Каталог</a>
-            <a href="#delivery">Самовывоз</a>
+            <a href="#delivery">Доставка</a>
             <a href="#contacts">Контакты</a>
-        </nav>
-        <div class="header-cart" id="cartIcon">
-            🛒 <span class="cart-count" id="cartCount">0</span>
         </div>
+        <button class="cart-btn" id="cartIcon">🛒 <span class="cart-count" id="cartCount">0</span></button>
     </header>
 
-    <!-- Герой -->
     <section class="hero">
-        <h1>Настоящие белорусские продукты<br>с доставкой по Москве</h1>
-        <p>Молоко, мясо, сыры, сладости — закажите через сайт и заберите самовывозом.</p>
-        <a href="#catalog" class="btn">Смотреть каталог</a>
+        <h1>Лучшие белорусские продукты<br>в Москве</h1>
+        <p>Молочка, мясо, сладости, косметика. Доставка на дом или самовывоз — выбирайте удобный способ.</p>
+        <a href="#catalog" class="btn btn-danger">Смотреть каталог</a>
     </section>
 
-    <!-- Преимущества -->
-    <section class="section">
-        <h2>Почему выбирают нас</h2>
+    <div class="container">
         <div class="features">
-            <div class="feature-card"><div class="icon">🌿</div><h3>Натуральные продукты</h3><p>Без ГМО, строгий ГОСТ.</p></div>
-            <div class="feature-card"><div class="icon">📍</div><h3>Удобный самовывоз</h3><p>Заберите заказ в Москве.</p></div>
-            <div class="feature-card"><div class="icon">🇧🇾</div><h3>100% Беларусь</h3><p>Только проверенные бренды.</p></div>
-            <div class="feature-card"><div class="icon">🛒</div><h3>Быстрый заказ</h3><p>Корзина и форма за минуту.</p></div>
+            <div class="feature-card"><div class="feature-icon">🌿</div><h3>Натуральность</h3><p>Строгий ГОСТ, без ГМО</p></div>
+            <div class="feature-card"><div class="feature-icon">🚚</div><h3>Доставка</h3><p>По Москве и области</p></div>
+            <div class="feature-card"><div class="feature-icon">📍</div><h3>Самовывоз</h3><p>Удобный пункт выдачи</p></div>
+            <div class="feature-card"><div class="feature-icon">🇧🇾</div><h3>100% Беларусь</h3><p>Проверенные бренды</p></div>
         </div>
-    </section>
+    </div>
 
-    <!-- Каталог -->
-    <section class="section" id="catalog">
-        <h2>Каталог товаров</h2>
-        <div class="catalog-controls">
-            <input type="text" class="search-box" id="searchInput" placeholder="🔍 Поиск по названию...">
-            <div class="filter-btns" id="filterButtons">
-                <button class="filter-btn active" data-category="all">Все</button>
-                <button class="filter-btn" data-category="milk">Молочка</button>
-                <button class="filter-btn" data-category="meat">Мясо и колбасы</button>
-                <button class="filter-btn" data-category="sweets">Сладости</button>
-                <button class="filter-btn" data-category="cosmetics">Косметика</button>
-                <button class="filter-btn" data-category="other">Другое</button>
-            </div>
+    <div class="container" id="catalog">
+        <h2 class="section-title">Каталог товаров</h2>
+        <div class="filters" id="filterButtons">
+            <button class="filter-btn active" data-category="all">Все</button>
+            <button class="filter-btn" data-category="milk">Молочка</button>
+            <button class="filter-btn" data-category="meat">Мясо, колбасы</button>
+            <button class="filter-btn" data-category="sweets">Сладости</button>
+            <button class="filter-btn" data-category="cosmetics">Косметика</button>
+            <button class="filter-btn" data-category="other">Другое</button>
         </div>
         <div class="product-grid" id="productGrid"></div>
-    </section>
+    </div>
 
-    <!-- Самовывоз -->
-    <section class="section" id="delivery">
-        <h2>Самовывоз и оплата</h2>
-        <div class="delivery-content">
-            <div class="delivery-text">
-                <ul>
-                    <li><span class="icon">📦</span> <strong>Адрес:</strong> г. Москва, ул. Примерная, д.10</li>
-                    <li><span class="icon">🕒</span> <strong>Время работы пункта выдачи:</strong> ежедневно 10:00–20:00</li>
-                    <li><span class="icon">🛒</span> <strong>Как заказать:</strong> добавьте товары в корзину и заполните форму</li>
-                    <li><span class="icon">💳</span> <strong>Оплата:</strong> наличные или перевод при получении</li>
-                </ul>
-            </div>
-            <div class="map-container">
-                <iframe src="https://yandex.ru/map-widget/v1/?ll=37.617700%2C55.755863&z=10" width="100%" height="300" frameborder="0" style="border:0;" allowfullscreen></iframe>
-            </div>
+    <div class="container" id="delivery">
+        <h2 class="section-title">Доставка и самовывоз</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 30px;">
+            <div style="flex:1; min-width:250px;"><h4>🚚 Доставка курьером</h4><p>По Москве — от 350 ₽, заказы от 3000 ₽ — бесплатно. За МКАД — от 500 ₽.</p></div>
+            <div style="flex:1; min-width:250px;"><h4>📍 Самовывоз</h4><p>г. Москва, ул. Примерная, д.10. Ежедневно 10:00–20:00.</p></div>
         </div>
-    </section>
+    </div>
 
-    <!-- Контакты -->
-    <section class="section" id="contacts">
-        <h2>Контакты</h2>
-        <div class="contact-info">
-            <div class="contact-item">
-                <div class="icon">✈️</div>
-                <strong>Telegram</strong><br>
-                <a href="https://t.me/+79169014737" target="_blank">@BelorussProduct</a><br>
-                <small>+7 916 901-47-37</small>
-            </div>
-            <div class="contact-item">
-                <div class="icon">📍</div>
-                <strong>Адрес самовывоза</strong><br>
-                г. Москва, ул. Примерная, д.10
-            </div>
-            <div class="contact-item">
-                <div class="icon">🕒</div>
-                <strong>Режим работы</strong><br>
-                Ежедневно 10:00–22:00
-            </div>
-        </div>
-    </section>
+    <div class="container" id="contacts">
+        <h2 class="section-title">Контакты</h2>
+        <p style="text-align:center;">📞 +7 916 901-47-37 &nbsp;|&nbsp; ✈️ Telegram: <a href="https://t.me/sergeytg777">@sergeytg777</a></p>
+    </div>
 
-    <footer class="footer">
-        <p>© 2026 Белорусские товары — настоящие белорусские товары в Москве.</p>
-    </footer>
+    <footer class="footer"><p>© 2025 BelorussProduct. Все права защищены.</p></footer>
 
-    <!-- Модальное окно корзины -->
-    <div class="modal-overlay" id="cartModal">
-        <div class="modal">
-            <h3>🛒 Ваша корзина</h3>
-            <div class="cart-items" id="cartItemsContainer"></div>
-            <div class="cart-total" id="cartTotal"></div>
-            <!-- Форма заказа (скрыта до нажатия «Оформить заказ») -->
-            <form id="orderForm" style="display: none;">
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header"><h3>🛒 Ваша корзина</h3><button class="close-btn" onclick="closeCart()">&times;</button></div>
+            <ul class="cart-items" id="cartItems"></ul>
+            <div class="cart-total" id="cartTotal">0 ₽</div>
+            <form id="orderForm">
+                <div class="form-group"><label>Имя *</label><input type="text" id="customerName" required></div>
+                <div class="form-group"><label>Телефон *</label><input type="tel" id="customerPhone" required></div>
+                <div class="form-group"><label>Email</label><input type="email" id="customerEmail"></div>
                 <div class="form-group">
-                    <label>Имя *</label>
-                    <input type="text" id="customerName" required>
+                    <label>Способ получения</label>
+                    <div class="delivery-option">
+                        <input type="radio" name="delivery" value="Самовывоз" id="pickup" checked>
+                        <label for="pickup">Самовывоз</label>
+                        <input type="radio" name="delivery" value="Доставка" id="deliveryRadio">
+                        <label for="deliveryRadio">Доставка</label>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Телефон или Email *</label>
-                    <input type="text" id="customerContact" placeholder="+7 999 123-45-67 или email" required>
-                </div>
-                <div class="form-actions">
-                    <button type="button" class="btn-outline" onclick="closeCart()">Продолжить покупки</button>
-                    <button type="submit" class="btn">Отправить заказ</button>
-                </div>
+                <div class="form-group" id="addressGroup" style="display:none;"><label>Адрес доставки</label><textarea id="address" rows="2"></textarea></div>
+                <div class="form-group"><label>Комментарий</label><textarea id="comment" rows="2"></textarea></div>
+                <button type="submit" class="btn btn-danger" style="width:100%;">Отправить заказ</button>
             </form>
-            <!-- Кнопки, пока форма не показана -->
-            <div class="form-actions" id="cartActions">
-                <button class="btn-outline" onclick="closeCart()">Продолжить покупки</button>
-                <button class="btn" onclick="startCheckout()">Оформить заказ</button>
-            </div>
         </div>
     </div>
 
     <script>
-        // ==================== ТОВАРЫ ====================
+        // ====== ВАШ РАБОЧИЙ URL WORKER ======
+        const WORKER_URL = 'https://broken-poetry-ef54.aliashyni.workers.dev/';
+
         const products = [
             { id:1, cat:"milk", name:"Сметана «Брест-Литовск» 20%", price:180, weight:"400 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Сметана" },
-            { id:2, cat:"milk", name:"Творог обезжиренный «Савушкин»", price:120, weight:"250 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Творог" },
-            { id:3, cat:"meat", name:"Колбаса «Докторская» ГОСТ", price:450, weight:"500 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Колбаса" },
-            { id:4, cat:"meat", name:"Сало солёное по-домашнему", price:380, weight:"300 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Сало" },
-            { id:5, cat:"sweets", name:"Зефир «Шармэль» ванильный", price:220, weight:"250 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Зефир" },
-            { id:6, cat:"sweets", name:"Шоколад «Коммунарка» горький 72%", price:150, weight:"100 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Шоколад" },
-            { id:7, cat:"cosmetics", name:"Крем для рук «Белита» с пантенолом", price:190, weight:"100 мл", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Крем" },
-            { id:8, cat:"other", name:"Льняная скатерть с орнаментом", price:1200, weight:"140x200 см", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Скатерть" },
-            { id:9, cat:"milk", name:"Масло сливочное 82,5% «Брестское»", price:250, weight:"180 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Масло" }
+            { id:2, cat:"milk", name:"Творог «Савушкин» 0%", price:120, weight:"250 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Творог" },
+            { id:3, cat:"meat", name:"Колбаса Докторская ГОСТ", price:450, weight:"500 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Колбаса" },
+            { id:4, cat:"meat", name:"Сало по-домашнему", price:380, weight:"300 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Сало" },
+            { id:5, cat:"sweets", name:"Зефир «Шармэль»", price:220, weight:"250 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Зефир" },
+            { id:6, cat:"sweets", name:"Шоколад «Коммунарка»", price:150, weight:"100 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Шоколад" },
+            { id:7, cat:"cosmetics", name:"Крем «Белита» пантенол", price:190, weight:"100 мл", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Крем" },
+            { id:8, cat:"other", name:"Льняная скатерть", price:1200, weight:"140x200 см", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Скатерть" },
+            { id:9, cat:"milk", name:"Масло сливочное 82,5%", price:250, weight:"180 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Масло" }
         ];
 
-        // ==================== КОРЗИНА ====================
         let cart = [];
-
-        // DOM-элементы
+        const cartCountEl = document.getElementById('cartCount');
+        const cartItemsEl = document.getElementById('cartItems');
+        const cartTotalEl = document.getElementById('cartTotal');
+        const cartModal = document.getElementById('cartModal');
         const productGrid = document.getElementById('productGrid');
         const searchInput = document.getElementById('searchInput');
         const filterBtns = document.querySelectorAll('.filter-btn');
-        const cartIcon = document.getElementById('cartIcon');
-        const cartCount = document.getElementById('cartCount');
-        const cartModal = document.getElementById('cartModal');
-        const cartItemsContainer = document.getElementById('cartItemsContainer');
-        const cartTotal = document.getElementById('cartTotal');
-        const orderForm = document.getElementById('orderForm');
-        const cartActions = document.getElementById('cartActions');
-
         let currentCategory = 'all';
-        let searchQuery = '';
 
-        // Рендер каталога
         function renderProducts() {
+            const searchTerm = searchInput.value.toLowerCase();
             const filtered = products.filter(p => {
                 const matchCat = currentCategory === 'all' || p.cat === currentCategory;
-                const matchSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase());
+                const matchSearch = p.name.toLowerCase().includes(searchTerm);
                 return matchCat && matchSearch;
             });
             productGrid.innerHTML = filtered.map(p => `
                 <div class="product-card">
                     <img src="${p.img}" alt="${p.name}">
-                    <div class="product-info">
-                        <h3>${p.name}</h3>
+                    <div class="product-body">
+                        <div class="product-title">${p.name}</div>
                         <div class="product-meta">${p.weight}</div>
                         <div class="product-price">${p.price} ₽</div>
-                        <button class="add-to-cart-btn" onclick="addToCart(${p.id})">🛒 В корзину</button>
+                        <div class="product-actions">
+                            <button class="btn-cart" onclick="addToCart(${p.id})">В корзину</button>
+                        </div>
                     </div>
                 </div>
             `).join('');
         }
 
-        // Фильтры
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 filterBtns.forEach(b => b.classList.remove('active'));
@@ -294,150 +221,113 @@
                 renderProducts();
             });
         });
-        searchInput.addEventListener('input', (e) => {
-            searchQuery = e.target.value;
-            renderProducts();
-        });
+        searchInput.addEventListener('input', renderProducts);
 
-        // Добавление в корзину
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
             if (!product) return;
-            cart.push({...product});
-            updateCartUI();
-            alert(`✅ "${product.name}" добавлен в корзину`);
-        }
-
-        // Удаление из корзины
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-            if (cart.length === 0 && cartModal.style.display === 'flex') {
-                closeCart();
+            const existing = cart.find(item => item.id === productId);
+            if (existing) {
+                existing.qty += 1;
             } else {
-                renderCartItems();
+                cart.push({ ...product, qty: 1 });
             }
+            updateCartUI();
         }
 
-        // Обновление счётчика корзины
         function updateCartUI() {
-            cartCount.textContent = cart.length;
-            if (cartModal.style.display === 'flex') renderCartItems();
-        }
-
-        // Отображение товаров в модальном окне
-        function renderCartItems() {
-            if (cart.length === 0) {
-                cartItemsContainer.innerHTML = '<p style="text-align:center; color:#777;">Корзина пуста</p>';
-                cartTotal.innerHTML = '';
-                cartActions.style.display = 'none';
-                orderForm.style.display = 'none';
-            } else {
-                let itemsHtml = cart.map((item, index) => `
-                    <div class="cart-item">
-                        <span class="cart-item-name">${item.name} (${item.weight})</span>
-                        <span class="cart-item-price">${item.price} ₽</span>
-                        <button class="remove-item" onclick="removeFromCart(${index})">✕</button>
-                    </div>
-                `).join('');
-                cartItemsContainer.innerHTML = itemsHtml;
-                const total = cart.reduce((sum, item) => sum + item.price, 0);
-                cartTotal.innerHTML = `<strong>Итого: ${total} ₽</strong>`;
-                cartActions.style.display = 'flex';
-                orderForm.style.display = 'none';
-            }
-        }
-
-        // Модальное окно
-        function openCart() {
-            cartModal.style.display = 'flex';
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            cartCountEl.textContent = totalItems;
             renderCartItems();
         }
-        function closeCart() {
-            cartModal.style.display = 'none';
-        }
-        cartIcon.addEventListener('click', openCart);
-        cartModal.addEventListener('click', function(e) {
-            if (e.target === cartModal) closeCart();
-        });
 
-        // Переход к оформлению заказа
-        function startCheckout() {
+        function renderCartItems() {
             if (cart.length === 0) {
-                alert('Добавьте товары в корзину!');
-                return;
+                cartItemsEl.innerHTML = '<li style="text-align:center; color:#888;">Корзина пуста</li>';
+                cartTotalEl.textContent = '0 ₽';
+            } else {
+                cartItemsEl.innerHTML = cart.map((item, index) => `
+                    <li class="cart-item">
+                        <div class="cart-item-info">
+                            <div class="cart-item-title">${item.name}</div>
+                            <div>${item.price} ₽ × ${item.qty}</div>
+                        </div>
+                        <div class="cart-item-actions">
+                            <button onclick="changeQty(${index}, -1)">-</button>
+                            <span class="qty">${item.qty}</span>
+                            <button onclick="changeQty(${index}, 1)">+</button>
+                            <button style="color:#d32f2f; border:none; font-size:1.2rem;" onclick="removeItem(${index})">&times;</button>
+                        </div>
+                    </li>
+                `).join('');
+                const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+                cartTotalEl.textContent = total + ' ₽';
             }
-            cartActions.style.display = 'none';
-            orderForm.style.display = 'block';
         }
 
-        // ==================== ОТПРАВКА ЗАКАЗА В SUPABASE ====================
-        document.getElementById('orderForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
+        function changeQty(index, delta) {
+            cart[index].qty += delta;
+            if (cart[index].qty <= 0) cart.splice(index, 1);
+            updateCartUI();
+        }
 
-            // Генерируем номер заказа
-            const orderNumber = 'BLR-' + Date.now().toString(36).toUpperCase() + '-' + Math.floor(Math.random()*1000);
+        function removeItem(index) { cart.splice(index, 1); updateCartUI(); }
 
-            // Формируем описание товаров с их кодами
-            const orderItems = cart.map(item => `[${item.id}] ${item.name} (${item.weight}) – ${item.price}₽`).join('\n');
-            const total = cart.reduce((sum, item) => sum + item.price, 0) + ' ₽';
+        document.getElementById('cartIcon').addEventListener('click', () => cartModal.classList.add('active'));
+        function closeCart() { cartModal.classList.remove('active'); }
+        window.onclick = (e) => { if (e.target === cartModal) closeCart(); }
 
-            // ========== ВАЖНО! ЗАМЕНИТЕ НА СВОИ ДАННЫЕ SUPABASE ==========
-            const SUPABASE_URL = 'https://uzkcqbdybhmcgjqbzhbs.supabase.co';   // ваш Project URL
-            const SUPABASE_ANON_KEY = 'eyJ...ВАШ_АНОНИМНЫЙ_КЛЮЧ...';       // ваш anon public key
-            // ================================================================
-
-            const orderData = {
-                customer_name: document.getElementById('customerName').value,
-                customer_contact: document.getElementById('customerContact').value,
-                order_details: orderItems,
-                order_number: orderNumber,
-                total: total
-            };
-
-            try {
-                const response = await fetch(`${SUPABASE_URL}/rest/v1/orders`, {
-                    method: 'POST',
-                    headers: {
-                        'apikey': sb_secret_fxNrI3TEYbhAknJTFYkuDQ_V2PgvQ3T,
-                        'Authorization': `Bearer ${sb_secret_fxNrI3TEYbhAknJTFYkuDQ_V2PgvQ3T}`,
-                        'Content-Type': 'application/json',
-                        'Prefer': 'return=minimal'
-                    },
-                    body: JSON.stringify(orderData)
-                });
-
-                if (response.ok) {
-                    alert(`✅ Заказ №${orderNumber} оформлен! Мы свяжемся с вами.`);
-                    // Очистка корзины и формы
-                    cart = [];
-                    updateCartUI();
-                    closeCart();
-                    document.getElementById('customerName').value = '';
-                    document.getElementById('customerContact').value = '';
-                    orderForm.style.display = 'none';
-                } else {
-                    const errorText = await response.text();
-                    throw new Error(errorText);
-                }
-            } catch (error) {
-                alert('😔 Ошибка при отправке. Попробуйте ещё раз или свяжитесь с нами через Telegram.');
-                console.error('Supabase error:', error);
-            }
-        });
-
-        // Плавная прокрутка
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href === "#") return;
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.querySelectorAll('input[name="delivery"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.getElementById('addressGroup').style.display = this.value === 'Доставка' ? 'block' : 'none';
             });
         });
 
-        // Первый рендер каталога
+        document.getElementById('orderForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            if (cart.length === 0) return alert('Корзина пуста!');
+
+            const orderNumber = 'BLR-' + Date.now().toString(36).toUpperCase();
+            const deliveryMethod = document.querySelector('input[name="delivery"]:checked').value;
+            const itemsText = cart.map(item => `[${item.id}] ${item.name} x${item.qty} = ${item.price * item.qty}₽`).join('\n');
+            const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+            const orderData = {
+                order_number: orderNumber,
+                date: new Date().toLocaleString('ru-RU'),
+                customer_name: document.getElementById('customerName').value,
+                customer_phone: document.getElementById('customerPhone').value,
+                customer_email: document.getElementById('customerEmail').value || 'не указан',
+                delivery: deliveryMethod,
+                address: deliveryMethod === 'Доставка' ? document.getElementById('address').value : 'Самовывоз',
+                comment: document.getElementById('comment').value || '—',
+                items: itemsText,
+                total: total + ' ₽'
+            };
+
+            try {
+                const response = await fetch(WORKER_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(orderData)
+                });
+                const result = await response.json();
+                if (response.ok && result.success) {
+                    alert(`✅ Заказ №${orderNumber} оформлен! Мы свяжемся с вами.`);
+                    cart = [];
+                    updateCartUI();
+                    closeCart();
+                    this.reset();
+                    document.getElementById('addressGroup').style.display = 'none';
+                } else {
+                    throw new Error(result.error || 'Ошибка сервера');
+                }
+            } catch (error) {
+                alert('😔 Ошибка при отправке. Попробуйте ещё раз.');
+                console.error(error);
+            }
+        });
+
         renderProducts();
     </script>
 </body>
