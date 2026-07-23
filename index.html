@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BelorussProduct — Белорусские товары в Москве</title>
+    <title>Белорусские продукты в Москве – купить с самовывозом | BelorussProduct</title>
+    <meta name="description" content="Настоящие белорусские продукты с самовывозом в Москве: колбасы, сыры, молочка, деликатесы. Быстрый заказ онлайн, пункт выдачи Олонецкая 6. ИП Буданцев.">
+    <meta name="keywords" content="белорусские продукты, Москва, колбасы, сыры, молочка, самовывоз, купить белорусские продукты, Белорусские продукты Москва">
+    <meta property="og:title" content="Белорусские продукты в Москве – BelorussProduct">
+    <meta property="og:description" content="Самовывоз белорусских продуктов на Олонецкой 6. Широкий ассортимент колбас, сыров, молочной продукции.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ваш-аккаунт.github.io/репозиторий/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -43,13 +49,9 @@
         .feature-icon { font-size: 2.5rem; margin-bottom: 15px; }
         .feature-card h3 { color: #1b5e20; }
 
-        .popular-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; }
-        .popular-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: 0.3s; }
-        .popular-card:hover { box-shadow: 0 6px 16px rgba(0,0,0,0.1); transform: translateY(-2px); }
-        .popular-card img { width: 100%; height: 160px; object-fit: cover; background: #f0f0f0; }
-        .popular-body { padding: 12px; text-align: center; }
-        .popular-title { font-weight: 600; font-size: 0.95rem; color: #222; }
-        .popular-price { font-weight: 700; color: #d32f2f; margin-top: 5px; }
+        .categories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; }
+        .category-card { background: #fff; border: 2px solid #e8f5e9; border-radius: 16px; padding: 25px 20px; text-align: center; cursor: pointer; transition: 0.3s; font-weight: 600; color: #2e7d32; }
+        .category-card:hover { background: #e8f5e9; border-color: #2e7d32; }
 
         .filters { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 30px; }
         .filter-btn { padding: 10px 20px; border: 2px solid #ddd; background: #fff; border-radius: 30px; font-weight: 600; cursor: pointer; transition: 0.3s; }
@@ -86,34 +88,32 @@
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
         .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 10px; font-family: inherit; }
-        .form-group input:focus, .form-group textarea:focus { border-color: #2e7d32; outline: none; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #2e7d32; outline: none; }
+        .error-message { color: #d32f2f; font-size: 0.85rem; margin-top: 5px; display: none; }
+        .success-notification { display: none; }
+        .success-notification .success-icon { font-size: 3rem; text-align: center; margin-bottom: 15px; }
+        .success-notification h4 { color: #2e7d32; text-align: center; }
+        .success-notification p { margin: 10px 0; }
 
         .map-container { border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-top: 20px; }
 
         .footer { background: #1b5e20; color: #fff; padding: 30px 20px; margin-top: 50px; text-align: center; }
         .footer-details { font-size: 0.9rem; opacity: 0.85; margin-top: 10px; }
         .footer-details p { margin: 5px 0; }
-
-        @media (max-width: 768px) {
-            .header { flex-direction: column; }
-            .nav-links { justify-content: center; }
-            .search-box { width: 100%; }
-        }
     </style>
 </head>
 <body>
     <!-- Шапка -->
     <header class="header">
         <div class="logo">Beloruss<span>Product</span></div>
-        <input type="text" class="search-box" id="searchInput" placeholder="🔍 Искать товары...">
+        <input type="text" class="search-box" id="searchInput" placeholder="🔍 Поиск по названию...">
         <div class="nav-links">
             <a href="#">Главная</a>
-            <a href="#catalog">Каталог</a>
+            <a href="#categories">Категории</a>
             <a href="#pickup">Самовывоз</a>
             <a href="#contacts">Контакты</a>
         </div>
         <button class="cart-btn" id="cartIcon">
-            <!-- SVG иконка корзины -->
             <svg class="cart-icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7 18c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
             </svg>
@@ -123,45 +123,48 @@
 
     <!-- Герой -->
     <section class="hero">
-        <h1>Лучшие белорусские продукты<br>в Москве</h1>
-        <p>Молочка, мясо, сладости, косметика. Только самовывоз — закажите онлайн и заберите в удобное время.</p>
-        <a href="#catalog" class="btn btn-danger">Смотреть каталог</a>
+        <h1>Белорусские продукты<br>в Москве</h1>
+        <p>Натуральные колбасы, сыры, молочка, деликатесы – закажите онлайн и заберите самовывозом на Олонецкой 6.</p>
+        <a href="#categories" class="btn btn-danger">Выбрать категорию</a>
     </section>
 
     <!-- Преимущества -->
     <div class="container">
         <div class="features">
             <div class="feature-card"><div class="feature-icon">🌿</div><h3>Натуральность</h3><p>Строгий ГОСТ, без ГМО</p></div>
-            <div class="feature-card"><div class="feature-icon">📍</div><h3>Удобный самовывоз</h3><p>Центр Москвы, ежедневно</p></div>
+            <div class="feature-card"><div class="feature-icon">📍</div><h3>Самовывоз</h3><p>Олонецкая 6, Москва</p></div>
             <div class="feature-card"><div class="feature-icon">🇧🇾</div><h3>100% Беларусь</h3><p>Проверенные бренды</p></div>
             <div class="feature-card"><div class="feature-icon">💬</div><h3>Поддержка</h3><p>Ответим в Telegram</p></div>
         </div>
     </div>
 
-    <!-- Популярные товары (первые 7) -->
-    <div class="container">
-        <h2 class="section-title">Популярные товары</h2>
-        <div class="popular-grid" id="popularGrid"></div>
+    <!-- Категории (главная страница) -->
+    <div class="container" id="categories">
+        <h2 class="section-title">Категории товаров</h2>
+        <div class="categories-grid">
+            <div class="category-card" data-category="varenaya">Вареные колбасы</div>
+            <div class="category-card" data-category="sosiski">Сосиски-сардельки</div>
+            <div class="category-card" data-category="syrokopchenaya">Сырокопченые колбасы</div>
+            <div class="category-card" data-category="syrovyalenaya">Сыровяленые колбасы</div>
+            <div class="category-card" data-category="zamorozka">Замороженная продукция</div>
+            <div class="category-card" data-category="syry">Сыры</div>
+            <div class="category-card" data-category="napitki">Напитки</div>
+            <div class="category-card" data-category="molochnaya">Молочная продукция</div>
+            <div class="category-card" data-category="delikatesy">Деликатесы</div>
+        </div>
     </div>
 
-    <!-- Каталог -->
-    <div class="container" id="catalog">
-        <h2 class="section-title">Каталог товаров</h2>
-        <div class="filters" id="filterButtons">
-            <button class="filter-btn active" data-category="all">Все</button>
-            <button class="filter-btn" data-category="milk">Молочка</button>
-            <button class="filter-btn" data-category="meat">Мясо, колбасы</button>
-            <button class="filter-btn" data-category="sweets">Сладости</button>
-            <button class="filter-btn" data-category="cosmetics">Косметика</button>
-            <button class="filter-btn" data-category="other">Другое</button>
-        </div>
+    <!-- Каталог товаров (появляется при выборе категории или поиске) -->
+    <div class="container" id="catalog" style="display:none;">
+        <h2 class="section-title" id="catalogTitle">Товары</h2>
+        <div class="filters" id="filterButtons" style="display:none;"></div>
         <div class="product-grid" id="productGrid"></div>
     </div>
 
     <!-- Самовывоз и карта -->
     <div class="container" id="pickup">
         <h2 class="section-title">Самовывоз</h2>
-        <p style="text-align:center; margin-bottom:20px;">📍 <strong>Адрес:</strong> г. Москва, ул. Примерная, д.10<br>
+        <p style="text-align:center; margin-bottom:20px;">📍 <strong>Адрес:</strong> г. Москва, ул. Олонецкая, д.6<br>
         🕒 <strong>Время работы:</strong> ежедневно 10:00–20:00<br>
         💳 <strong>Оплата:</strong> наличные или перевод при получении</p>
         <div class="map-container">
@@ -177,7 +180,7 @@
 
     <!-- Подвал с реквизитами -->
     <footer class="footer">
-        <p>© 2025 BelorussProduct. Все права защищены.</p>
+        <p>© 2026 BelorussProduct. Все права защищены.</p>
         <div class="footer-details">
             <p>Наименование организации: ИП Буданцев Сергей Юрьевич</p>
             <p>ОГРН: 324680000009789</p>
@@ -185,60 +188,135 @@
         </div>
     </footer>
 
-    <!-- Модальное окно корзины (без выбора доставки) -->
+    <!-- Модальное окно корзины -->
     <div class="modal" id="cartModal">
         <div class="modal-content">
-            <div class="modal-header"><h3>🛒 Ваша корзина</h3><button class="close-btn" onclick="closeCart()">&times;</button></div>
-            <ul class="cart-items" id="cartItems"></ul>
-            <div class="cart-total" id="cartTotal">0 ₽</div>
-            <form id="orderForm">
-                <p style="text-align:center; color:#555; margin-bottom:15px;"><em>Самовывоз из пункта выдачи (Москва, ул. Примерная, д.10)</em></p>
-                <div class="form-group"><label>Имя *</label><input type="text" id="customerName" required></div>
-                <div class="form-group"><label>Телефон *</label><input type="tel" id="customerPhone" required></div>
-                <div class="form-group"><label>Email</label><input type="email" id="customerEmail"></div>
-                <div class="form-group"><label>Комментарий</label><textarea id="comment" rows="2"></textarea></div>
-                <button type="submit" class="btn btn-danger" style="width:100%;">Отправить заказ</button>
-            </form>
+            <!-- Шаг 1: Корзина и форма -->
+            <div id="cartStep">
+                <div class="modal-header"><h3>🛒 Ваша корзина</h3><button class="close-btn" onclick="closeCart()">&times;</button></div>
+                <ul class="cart-items" id="cartItems"></ul>
+                <div class="cart-total" id="cartTotal">0 ₽</div>
+                <form id="orderForm">
+                    <p style="text-align:center; color:#555; margin-bottom:15px;"><em>Самовывоз: Москва, ул. Олонецкая, д.6</em></p>
+                    <div class="form-group"><label>Имя *</label><input type="text" id="customerName" required></div>
+                    <div class="form-group">
+                        <label>Телефон *</label>
+                        <input type="tel" id="customerPhone" required pattern="[0-9\+]+" title="Только цифры и символ +">
+                        <div class="error-message" id="phoneError">Введите только цифры и знак +</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="customerEmail" placeholder="example@domain.ru">
+                        <div class="error-message" id="emailError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Дата самовывоза *</label>
+                        <input type="date" id="pickupDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Время самовывоза *</label>
+                        <select id="pickupTime" required>
+                            <option value="">-- Выберите время --</option>
+                            <option>10:00 – 11:00</option>
+                            <option>11:00 – 12:00</option>
+                            <option>12:00 – 13:00</option>
+                            <option>13:00 – 14:00</option>
+                            <option>14:00 – 15:00</option>
+                            <option>15:00 – 16:00</option>
+                            <option>16:00 – 17:00</option>
+                            <option>17:00 – 18:00</option>
+                            <option>18:00 – 19:00</option>
+                            <option>19:00 – 20:00</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label>Комментарий</label><textarea id="comment" rows="2"></textarea></div>
+                    <button type="submit" class="btn btn-danger" style="width:100%;">Отправить заказ</button>
+                </form>
+            </div>
+            <!-- Шаг 2: Уведомление об успешном заказе -->
+            <div id="successStep" class="success-notification" style="display:none;">
+                <div class="success-icon">✅</div>
+                <h4>Заказ отправлен!</h4>
+                <p>Сделайте скриншот этого меню.</p>
+                <p><strong>Номер заказа:</strong> <span id="orderNumberDisplay"></span></p>
+                <div id="orderItemsDisplay"></div>
+                <p><strong>Самовывоз:</strong> <span id="pickupDateTime"></span></p>
+                <p>📍 ул. Олонецкая, д.6, Москва</p>
+                <button class="btn btn-primary" onclick="closeCart()">Закрыть</button>
+            </div>
         </div>
     </div>
 
     <script>
-        // ====== ВАШ РАБОЧИЙ URL WORKER ======
         const WORKER_URL = 'https://broken-poetry-ef54.aliashyni.workers.dev/';
 
+        // ==================== ТОВАРЫ ====================
         const products = [
-            { id:1, cat:"milk", name:"Сметана «Брест-Литовск» 20%", price:180, weight:"400 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Сметана" },
-            { id:2, cat:"milk", name:"Творог «Савушкин» 0%", price:120, weight:"250 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Творог" },
-            { id:3, cat:"meat", name:"Колбаса Докторская ГОСТ", price:450, weight:"500 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Колбаса" },
-            { id:4, cat:"meat", name:"Сало по-домашнему", price:380, weight:"300 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Сало" },
-            { id:5, cat:"sweets", name:"Зефир «Шармэль»", price:220, weight:"250 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Зефир" },
-            { id:6, cat:"sweets", name:"Шоколад «Коммунарка»", price:150, weight:"100 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Шоколад" },
-            { id:7, cat:"cosmetics", name:"Крем «Белита» пантенол", price:190, weight:"100 мл", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Крем" },
-            { id:8, cat:"other", name:"Льняная скатерть", price:1200, weight:"140x200 см", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Скатерть" },
-            { id:9, cat:"milk", name:"Масло сливочное 82,5%", price:250, weight:"180 г", img:"https://placehold.co/400x300/e8f5e9/2e7d32?text=Масло" }
+            // Вареные колбасы
+            { id:1, cat:"varenaya", name:"Колбаса вареная «Брестская»", price:320, weight:"500 г", img:"1.webp" },
+            { id:2, cat:"varenaya", name:"Колбаса вареная «Докторская» ГОСТ", price:280, weight:"500 г", img:"2.webp" },
+            // Сосиски-сардельки
+            { id:3, cat:"sosiski", name:"Сосиски «Молочные»", price:220, weight:"400 г", img:"3.webp" },
+            { id:4, cat:"sosiski", name:"Сардельки «Говяжьи»", price:250, weight:"400 г", img:"4.webp" },
+            // Сырокопченые колбасы
+            { id:5, cat:"syrokopchenaya", name:"Колбаса сырокопченая «Московская»", price:550, weight:"300 г", img:"5.webp" },
+            // Сыровяленые колбасы
+            { id:6, cat:"syrovyalenaya", name:"Колбаса сыровяленая «Салями»", price:620, weight:"250 г", img:"6.webp" },
+            // Заморозка
+            { id:7, cat:"zamorozka", name:"Пельмени «Белорусские»", price:180, weight:"800 г", img:"7.webp" },
+            { id:8, cat:"zamorozka", name:"Вареники с картошкой", price:150, weight:"500 г", img:"8.webp" },
+            // Сыры
+            { id:9, cat:"syry", name:"Сыр «Брест-Литовск» 45%", price:390, weight:"200 г", img:"9.webp" },
+            // Напитки
+            { id:10, cat:"napitki", name:"Квас «Лидский»", price:95, weight:"1.5 л", img:"1.webp" },
+            // Молочная продукция
+            { id:11, cat:"molochnaya", name:"Сметана 20% «Брест-Литовск»", price:180, weight:"400 г", img:"2.webp" },
+            { id:12, cat:"molochnaya", name:"Творог «Савушкин» 0%", price:120, weight:"250 г", img:"3.webp" },
+            // Деликатесы
+            { id:13, cat:"delikatesy", name:"Грудинка «Белорусская»", price:450, weight:"300 г", img:"4.webp" },
+            { id:14, cat:"delikatesy", name:"Сало солёное", price:380, weight:"300 г", img:"5.webp" }
         ];
 
-        // Популярные товары (первые 7)
-        const popularProducts = products.slice(0, 7);
-        const popularGrid = document.getElementById('popularGrid');
-        popularGrid.innerHTML = popularProducts.map(p => `
-            <div class="popular-card">
-                <img src="${p.img}" alt="${p.name}">
-                <div class="popular-body">
-                    <div class="popular-title">${p.name}</div>
-                    <div class="popular-price">${p.price} ₽</div>
-                </div>
-            </div>
-        `).join('');
-
+        // ==================== ЛОГИКА КОРЗИНЫ ====================
         let cart = [];
         const cartCountEl = document.getElementById('cartCount');
         const cartItemsEl = document.getElementById('cartItems');
         const cartTotalEl = document.getElementById('cartTotal');
         const cartModal = document.getElementById('cartModal');
         const productGrid = document.getElementById('productGrid');
+        const catalogSection = document.getElementById('catalog');
+        const catalogTitle = document.getElementById('catalogTitle');
+        const filterButtons = document.getElementById('filterButtons');
         const searchInput = document.getElementById('searchInput');
-        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        // Обработка клика по категориям
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const cat = card.dataset.category;
+                showCategory(cat);
+            });
+        });
+
+        function showCategory(cat) {
+            const categoryNames = {
+                "varenaya": "Вареные колбасы",
+                "sosiski": "Сосиски-сардельки",
+                "syrokopchenaya": "Сырокопченые колбасы",
+                "syrovyalenaya": "Сыровяленые колбасы",
+                "zamorozka": "Замороженная продукция",
+                "syry": "Сыры",
+                "napitki": "Напитки",
+                "molochnaya": "Молочная продукция",
+                "delikatesy": "Деликатесы"
+            };
+            catalogTitle.textContent = categoryNames[cat] || "Товары";
+            currentCategory = cat;
+            catalogSection.style.display = 'block';
+            filterButtons.style.display = 'none'; // убираем кнопки фильтров, т.к. они не нужны
+            renderProducts();
+            catalogSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
         let currentCategory = 'all';
 
         function renderProducts() {
@@ -261,17 +339,26 @@
                     </div>
                 </div>
             `).join('');
+
+            if (currentCategory === 'all' && searchTerm === '') {
+                catalogSection.style.display = 'none'; // скрываем каталог, если ничего не выбрано
+            } else {
+                catalogSection.style.display = 'block';
+            }
         }
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentCategory = btn.dataset.category;
+        searchInput.addEventListener('input', () => {
+            if (searchInput.value.trim() !== '') {
+                currentCategory = 'all';
+                catalogTitle.textContent = 'Результаты поиска';
                 renderProducts();
-            });
+            } else if (currentCategory === 'all') {
+                catalogSection.style.display = 'none';
+            } else {
+                // если есть выбранная категория, но поиск пуст – вернуть категорию
+                renderProducts();
+            }
         });
-        searchInput.addEventListener('input', renderProducts);
 
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
@@ -323,30 +410,93 @@
 
         function removeItem(index) { cart.splice(index, 1); updateCartUI(); }
 
-        document.getElementById('cartIcon').addEventListener('click', () => cartModal.classList.add('active'));
+        // Модальное окно
+        document.getElementById('cartIcon').addEventListener('click', () => {
+            cartModal.classList.add('active');
+            document.getElementById('cartStep').style.display = 'block';
+            document.getElementById('successStep').style.display = 'none';
+            renderCartItems();
+        });
         function closeCart() { cartModal.classList.remove('active'); }
         window.onclick = (e) => { if (e.target === cartModal) closeCart(); }
 
-        // Отправка заказа – всегда самовывоз
+        // Валидация телефона
+        document.getElementById('customerPhone').addEventListener('input', function() {
+            const phone = this.value;
+            const isValid = /^[0-9\+]+$/.test(phone) || phone === '';
+            document.getElementById('phoneError').style.display = isValid ? 'none' : 'block';
+            this.setCustomValidity(isValid ? '' : 'Неверный формат');
+        });
+
+        // Валидация email
+        document.getElementById('customerEmail').addEventListener('input', function() {
+            const email = this.value.trim();
+            const emailError = document.getElementById('emailError');
+            if (email.includes('@')) {
+                const domain = email.split('@')[1]?.toLowerCase();
+                if (domain === 'gmail.com' || domain === 'mail.com') {
+                    emailError.textContent = 'Временно не поддерживается';
+                    emailError.style.display = 'block';
+                    this.setCustomValidity('Данный почтовый сервис недоступен');
+                } else {
+                    emailError.style.display = 'none';
+                    this.setCustomValidity('');
+                }
+            } else if (email !== '') {
+                emailError.textContent = 'Введите корректный email';
+                emailError.style.display = 'block';
+                this.setCustomValidity('Некорректный email');
+            } else {
+                emailError.style.display = 'none';
+                this.setCustomValidity('');
+            }
+        });
+
+        // Установка минимальной даты самовывоза (завтра)
+        const pickupDateInput = document.getElementById('pickupDate');
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        pickupDateInput.min = tomorrow.toISOString().split('T')[0];
+        pickupDateInput.value = tomorrow.toISOString().split('T')[0];
+
+        // Отправка заказа
         document.getElementById('orderForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             if (cart.length === 0) return alert('Корзина пуста!');
 
+            // Финальная проверка телефона и email
+            const phone = document.getElementById('customerPhone').value;
+            if (!/^[0-9\+]+$/.test(phone)) {
+                alert('Исправьте номер телефона.');
+                return;
+            }
+            const email = document.getElementById('customerEmail').value.trim();
+            if (email && email.includes('@')) {
+                const domain = email.split('@')[1]?.toLowerCase();
+                if (domain === 'gmail.com' || domain === 'mail.com') {
+                    alert('Почтовые сервисы Gmail и Mail.com временно не поддерживаются.');
+                    return;
+                }
+            }
+
             const orderNumber = 'BLR-' + Date.now().toString(36).toUpperCase();
             const itemsText = cart.map(item => `[${item.id}] ${item.name} x${item.qty} = ${item.price * item.qty}₽`).join('\n');
             const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+            const pickupDate = document.getElementById('pickupDate').value;
+            const pickupTime = document.getElementById('pickupTime').value;
 
             const orderData = {
                 order_number: orderNumber,
                 date: new Date().toLocaleString('ru-RU'),
                 customer_name: document.getElementById('customerName').value,
-                customer_phone: document.getElementById('customerPhone').value,
-                customer_email: document.getElementById('customerEmail').value || 'не указан',
+                customer_phone: phone,
+                customer_email: email || 'не указан',
                 delivery: 'Самовывоз',
-                address: 'Самовывоз (ул. Примерная, д.10)',
+                address: 'ул. Олонецкая, д.6, Москва',
                 comment: document.getElementById('comment').value || '—',
                 items: itemsText,
-                total: total + ' ₽'
+                total: total + ' ₽',
+                pickup: `${pickupDate} ${pickupTime}`
             };
 
             try {
@@ -357,11 +507,14 @@
                 });
                 const result = await response.json();
                 if (response.ok && result.success) {
-                    alert(`✅ Заказ №${orderNumber} оформлен! Мы свяжемся с вами.`);
+                    // Показать уведомление
+                    document.getElementById('cartStep').style.display = 'none';
+                    document.getElementById('successStep').style.display = 'block';
+                    document.getElementById('orderNumberDisplay').textContent = orderNumber;
+                    document.getElementById('orderItemsDisplay').innerHTML = `<ul>${cart.map(item => `<li>${item.name} x${item.qty} – ${item.price * item.qty}₽</li>`).join('')}</ul>`;
+                    document.getElementById('pickupDateTime').textContent = `${pickupDate} ${pickupTime}`;
                     cart = [];
                     updateCartUI();
-                    closeCart();
-                    this.reset();
                 } else {
                     throw new Error(result.error || 'Ошибка сервера');
                 }
@@ -371,6 +524,7 @@
             }
         });
 
+        // Инициализация
         renderProducts();
     </script>
 </body>
